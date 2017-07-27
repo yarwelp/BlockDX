@@ -131,12 +131,12 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1500918863;
+        genesis.nTime = 1501183223;
         genesis.nBits = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 381793;
+        genesis.nNonce = 3789283;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000002b866ccce5a2344be67786fc55d830f431fd1eaa1cde02e1309fcdb3f8f"));
+        assert(hashGenesisBlock == uint256("0x0x00000cf1de5ce7513cb2d386bcf976e0cd88f431c9a725aa5a6f6aeb533b5482"));
         assert(genesis.hashMerkleRoot == uint256("0xb1f0e93f6df55af4c23a0719ab33be2b8115e2b6127fc1d926a06c60a8b56bf2"));
 
 	/*
@@ -167,8 +167,8 @@ public:
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-        strSporkKey = "0484698d3ba6ba6e7423fa5cbd6a89e0a9a5348f88d332b44a5cb1a8b7ed2c1eaa335fc8dc4f012cb8241cc0bdafd6ca70c5f5448916e4e6f511bcd746ed57dc50";
-        strObfuscationPoolDummyAddress = "D87q2gC9j6nNrnzCsg4aY6bHMLsT9nUhEw";
+        strSporkKey = "0452c91a00518fb8c6d38100341f88499554284d1ba75097cc25ae5a0d811835c63d2cb46c8855304bca81c452b63ce71fcb6897d06f8000450841f72602457f74";
+        strObfuscationPoolDummyAddress = "BayPPPwvmwQZ5jSoi57HFExK8B3JH9iPzY";
         nStartServicenodePayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
     }
 
