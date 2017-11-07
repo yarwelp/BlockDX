@@ -79,7 +79,7 @@ bool XBridgeExchange::init()
         else
         {
             std::string tmpAccount;
-            if (!rpc::getAccount(user, passwd, ip, port, tmpAccount))
+            if (!rpc::getAccount(user, passwd, ip, port, address, tmpAccount))
             {
                 LOG() << "address not from this wallet or wallet not connected " << *i;
                 continue;

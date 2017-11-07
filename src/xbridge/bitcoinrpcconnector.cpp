@@ -1064,16 +1064,18 @@ bool getNewAddress(const std::string & rpcuser,
 //*****************************************************************************
 //*****************************************************************************
 bool getAccount(const std::string & rpcuser,
-                   const std::string & rpcpasswd,
-                   const std::string & rpcip,
-                   const std::string & rpcport,
-                   std::string & account)
+                const std::string & rpcpasswd,
+                const std::string & rpcip,
+                const std::string & rpcport,
+                const std::string & address,
+                std::string & account)
 {
     try
     {
         LOG() << "rpc call <getaccount>";
 
         Array params;
+        params.push_back(address);
         Object reply = CallRPC(rpcuser, rpcpasswd, rpcip, rpcport,
                                "getaccount", params);
 
