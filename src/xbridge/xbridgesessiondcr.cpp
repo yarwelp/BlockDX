@@ -42,7 +42,7 @@ std::vector<unsigned char> XBridgeSessionDcr::toXAddr(const std::string & addr) 
     std::vector<unsigned char> vaddr;
     if (this->DecodeBase58Check(addr.c_str(), vaddr))
     {
-        vaddr.erase(vaddr.begin());
+        vaddr.erase(vchRet.begin(), vchRet.begin() + 2);
     }
     return vaddr;
 }
@@ -155,7 +155,6 @@ bool XBridgeSessionDcr::DecodeBase58Check(const char* psz, std::vector<unsigned 
     }
 
     vchRet.resize(vchRet.size() - 4);
-    vchRet.erase(vchRet.begin(), vchRet.begin() + 2);
     return true;
 }
 
