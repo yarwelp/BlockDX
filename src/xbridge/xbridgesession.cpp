@@ -706,7 +706,7 @@ bool XBridgeSession::processTransactionHold(XBridgePacketPtr packet)
         // send hold apply
         XBridgePacketPtr reply(new XBridgePacket(xbcTransactionHoldApply));
         reply->append(hubAddress);
-        reply->append(toXAddr(xtx->from));
+        reply->append(toXAddr(xtx->from, xtx->fromCurrency));
         reply->append(id.begin(), 32);
 
         sendPacket(hubAddress, reply);
