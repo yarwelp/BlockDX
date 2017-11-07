@@ -61,31 +61,41 @@ bool XBridgeExchange::init()
         uint64_t    feePerByte = s.get<uint64_t>(*i + ".FeePerByte", 200);
 
 
-        if (/*address.empty() || */ip.empty() || port.empty() ||
-                user.empty() || passwd.empty())
+        if (ip.empty() || port.empty() || user.empty() || passwd.empty())
         {
             LOG() << "read wallet " << *i << " with empty parameters>";
             continue;
         }
 
-        // get new addres for receive fee
-        std::string feeAddress;
-        if (!rpc::getNewAddress(user, passwd, ip, port, feeAddress))
+        if (address.empty())
         {
-            LOG() << "wallet not connected " << *i;
-            continue;
+            std::string tmpAddress;
+            if (!rpc::getNewAddress(user, passwd, ip, port, tmpAddress))
+            {
+                LOG() << "wallet not connected " << *i;
+                continue;
+            }
+        }
+        else
+        {
+            std::string tmpAccount;
+            if (!rpc::getAccount(user, passwd, ip, port, tmpAccount))
+            {
+                LOG() << "address not from this wallet or wallet not connected " << *i;
+                continue;
+            }
         }
 
         WalletParam & wp = m_wallets[*i];
         wp.currency   = *i;
         wp.title      = label;
+        wp.address    = address;
         wp.ip         = ip;
         wp.port       = port;
         wp.user       = user;
         wp.passwd     = passwd;
         wp.minAmount  = minAmount;
         wp.dustAmount = dustAmount;
-        wp.taxaddr    = feeAddress;
         wp.txVersion  = txVersion;
         wp.minTxFee   = minTxFee;
         wp.feePerByte = feePerByte;

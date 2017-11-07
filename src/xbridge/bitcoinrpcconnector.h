@@ -105,6 +105,12 @@ namespace rpc
                        const std::string & rpcport,
                        std::string & addr);
 
+    bool getAccount(const std::string & rpcuser,
+                    const std::string & rpcpasswd,
+                    const std::string & rpcip,
+                    const std::string & rpcport,
+                    std::string & account);
+
     bool addMultisigAddress(const std::string & rpcuser,
                             const std::string & rpcpasswd,
                             const std::string & rpcip,

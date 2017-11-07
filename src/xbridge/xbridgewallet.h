@@ -22,7 +22,6 @@ struct WalletParam
     char                       addrPrefix[8];
     char                       scriptPrefix[8];
     char                       secretPrefix[8];
-    std::string                taxaddr;
     uint32_t                   txVersion;
     uint64_t                   COIN;
     uint64_t                   minTxFee;

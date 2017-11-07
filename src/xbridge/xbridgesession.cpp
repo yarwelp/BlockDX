@@ -75,7 +75,7 @@ XBridgeSession::~XBridgeSession()
 //*****************************************************************************
 //*****************************************************************************
 void XBridgeSession::init()
-{ 
+{
     if(m_handlers.size())
     {
         LOG() << "packet handlers map must be empty" << __FUNCTION__;
@@ -1380,15 +1380,20 @@ bool XBridgeSession::processTransactionCreate(XBridgePacketPtr packet)
         // rest
         if (inAmount > outAmount+fee1+fee2)
         {
-            std::string addr;
-            if (!rpc::getNewAddress(m_wallet.user, m_wallet.passwd,
-                                    m_wallet.ip, m_wallet.port,
-                                    addr))
+            std::string addr = m_wallet.address;
+            if(addr.empty())
             {
-                // cancel transaction
-                LOG() << "rpc error, transaction canceled " << __FUNCTION__;
-                sendCancelTransaction(xtx, crRpcError);
-                return true;
+                if (!rpc::getNewAddress(m_wallet.user,
+                                        m_wallet.passwd,
+                                        m_wallet.ip,
+                                        m_wallet.port,
+                                        addr))
+                {
+                    // cancel transaction
+                    LOG() << "rpc error, transaction canceled " << __FUNCTION__;
+                    sendCancelTransaction(xtx, crRpcError);
+                    return true;
+                }
             }
 
             double rest = inAmount-outAmount-fee1-fee2;
@@ -1452,13 +1457,20 @@ bool XBridgeSession::processTransactionCreate(XBridgePacketPtr packet)
 
         // outputs
         {
-            std::string addr;
-            if (!rpc::getNewAddress(m_wallet.user, m_wallet.passwd, m_wallet.ip, m_wallet.port, addr))
+            std::string addr = m_wallet.address;
+            if(addr.empty())
             {
-                // cancel transaction
-                LOG() << "rpc error, transaction canceled " << __FUNCTION__;
-                sendCancelTransaction(xtx, crRpcError);
-                return true;
+                if (!rpc::getNewAddress(m_wallet.user,
+                                        m_wallet.passwd,
+                                        m_wallet.ip,
+                                        m_wallet.port,
+                                        addr))
+                {
+                    // cancel transaction
+                    LOG() << "rpc error, transaction canceled " << __FUNCTION__;
+                    sendCancelTransaction(xtx, crRpcError);
+                    return true;
+                }
             }
 
             CScript scr = GetScriptForDestination(xbridge::XBitcoinAddress(addr).Get());
